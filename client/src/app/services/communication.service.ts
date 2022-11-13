@@ -2,6 +2,7 @@
 // import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { Planrepas } from "../modules/planrepas.module";
 
 @Injectable()
 export class CommunicationService {
@@ -17,6 +18,18 @@ export class CommunicationService {
 
   filter(filterBy: string): void {
     this._listeners.next(filterBy);
+  }
+
+  public getPlanrepas() : Planrepas[] {
+    let plan = new Planrepas
+    plan.numeroplan= 1;
+    plan.categorie= 'test catefgori';
+    plan.frequence= 1;
+    plan.nbrpersonnes= 1;
+    plan.nbrcalories= 1;
+    plan.prix= 1;
+    plan.numerofournisseur= 1;
+    return [plan]
   }
 
   // À DÉCOMMENTER ET À UTILISER LORSQUE VOTRE COMMUNICATION EST IMPLÉMENTÉE
