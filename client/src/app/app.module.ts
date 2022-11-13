@@ -8,10 +8,15 @@ import { AppComponent } from "./app.component";
 import { CommunicationService } from "./services/communication.service";
 import { AppMaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditPlanrepasComponent } from './components/edit-planrepas/edit-planrepas.component';
+import { TablePlanrepasComponent } from './components/table-planrepas/table-planrepas.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EditPlanrepasComponent,
+    TablePlanrepasComponent,
+
   ],
   imports: [
     CommonModule,

@@ -2,6 +2,7 @@
 // import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { Fournisseur } from "../modules/fournisseur.module";
 import { Planrepas } from "../modules/planrepas.module";
 
 @Injectable()
@@ -29,7 +30,20 @@ export class CommunicationService {
     plan.nbrcalories= 1;
     plan.prix= 1;
     plan.numerofournisseur= 1;
-    return [plan]
+    return [plan];
+  }
+  
+  public getFournisseurs(): Fournisseur[]{
+    let it = new Fournisseur;
+    it.nomfournisseur = 'Walmart';
+    return [it];
+  }
+
+  public getFournisseur(id: number): Fournisseur{
+    let it = new Fournisseur;
+    it.numerofournisseur = id;
+    it.nomfournisseur = 'Walmart';
+    return it;
   }
 
   // À DÉCOMMENTER ET À UTILISER LORSQUE VOTRE COMMUNICATION EST IMPLÉMENTÉE

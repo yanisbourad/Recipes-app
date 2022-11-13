@@ -9,7 +9,6 @@ import { Router } from "@angular/router";
 })
 export class AppComponent implements OnInit {
     public route: string;
-
     public constructor(location: Location, router: Router) {
         router.events.subscribe((_val: any) => {
             if (location.path() !== "") {

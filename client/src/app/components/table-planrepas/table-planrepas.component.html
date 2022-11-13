@@ -1,0 +1,23 @@
+<table class= 'Planrepas'>
+    <thead>
+      <th>Categorie</th>
+      <th>Frequence</th>
+      <th>Nombre Personnes</th>
+      <th>Calories</th>
+      <th>Prix</th>
+      <th>Fournisseur</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr class= 'plan' *ngFor="let plan of planrepas">
+        <td>{{plan.categorie}}</td>
+        <td>{{plan.frequence}}/semaine</td>
+        <td>{{plan.nbrpersonnes}}</td>
+        <td>{{plan.nbrcalories}}KCal</td>
+        <td>{{plan.prix}}$</td>
+        <td>{{getFournisseurName(plan.numerofournisseur)}}</td>
+        <th><a [routerLink]="['edit-planrepas']" [plan]='plan'  >Edit</a></th>
+      </tr>
+    </tbody>
+</table>
+<button (click)="initPlan()">Create Nouveau Planrepas</button>
