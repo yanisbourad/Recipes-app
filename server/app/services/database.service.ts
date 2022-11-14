@@ -52,7 +52,8 @@ export class DatabaseService {
   }
 
   public async createPlanrepas(planrepasValues: {}) {
-    let thisPlan = new Planrepas(planrepasValues)
+    let thisPlan = new Planrepas()
+    thisPlan.init(planrepasValues)
     if (!thisPlan.isValid()) throw new Error("Invalid Planrepas query");
     const client = await this.pool.connect();
     // the error here is: numplanrepas n'est pas initier dans le client  
@@ -66,7 +67,8 @@ export class DatabaseService {
   }
 
   public async updatePlanrepas(planrepasValues: {}) {
-    let thisPlan = new Planrepas(planrepasValues)
+    let thisPlan = new Planrepas
+    thisPlan.init(planrepasValues)
     if ( !thisPlan.isValid() ) throw new Error(`This PlanRepas n est pas valide`);
     const client = await this.pool.connect();
     const queryText: string = `update planrepas SET categorie = $2, frequence = $3, nbrpersonnes = $4, nbrcalories = $5, prix = $6, numerofournisseur = $7 WHERE numeroplan = $1`;

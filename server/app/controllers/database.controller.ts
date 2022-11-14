@@ -56,7 +56,6 @@ export class DatabaseController {
  
     //example: http://localhost:3000/database/Planrepas/
     router.post("/planrepas/create", (req: Request, res: Response, _: NextFunction) =>{
-    
       this.databaseService.createPlanrepas(req.body).then((result: pg.QueryResult) =>{
         res.json('true').status(200);
       }) .catch((e:Error) => {

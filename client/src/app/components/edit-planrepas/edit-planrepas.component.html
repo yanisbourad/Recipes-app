@@ -1,5 +1,5 @@
-<h1 *ngIf="!plan.numeroplan">Creer Nouveau Plan Repas</h1>
-<h1 *ngIf="plan.numeroplan">Moddifier Plan Repas</h1>
+<h1 *ngIf="plan.numeroplan === undefined">Creer Nouveau Plan Repas</h1>
+<h1 *ngIf="plan.numeroplan != undefined">Moddifier Plan Repas</h1>
 <p>Categorie</p>
 <input type="text" [(ngModel)] = "plan.categorie" placeholder="Categorie"/>
 <p>frequence(hebdo)</p>
@@ -14,7 +14,7 @@
 <select [(ngModel)]="plan.numerofournisseur">
     <option *ngFor="let fournisseur of fournisseurs" [(ngValue)]="fournisseur.numerofournisseur">{{fournisseur.nomfournisseur}}</option>
 </select>
-<button *ngIf="!plan.numeroplan" (click)="createPlan()">Creer</button>
-<button *ngIf="plan.numeroplan" (click)="updatePlan()">Sauvgarder</button>
-<button *ngIf="plan.numeroplan" (click)="deletePlan()">Supprimer</button>
+<button *ngIf="plan.numeroplan === undefined" (click)="createPlan()">Creer</button>
+<button *ngIf="plan.numeroplan != undefined" (click)="updatePlan()">Sauvgarder</button>
+<button *ngIf="plan.numeroplan != undefined" (click)="deletePlan()">Supprimer</button>
 <a routerLink="">Return</a>

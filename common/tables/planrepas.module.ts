@@ -1,9 +1,13 @@
 
 export class Planrepas {
-  constructor(hash: {}) {
-    for (var key in hash){
-      this[key] = hash[key];   
-    }
+  init(hash: {[key: string]: any}) {
+    this.numeroplan = hash['numeroplan']
+    this.categorie = hash['categorie']
+    this.frequence = hash['frequence']
+    this.nbrpersonnes = hash['nbrpersonnes']
+    this.nbrcalories = hash['nbrcalories']
+    this.prix = hash['prix']
+    this.numerofournisseur = hash['numerofournisseur']
   }
     numeroplan: number;
     categorie: string;
