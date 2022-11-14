@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS Planrepas(
 	prix				DECIMAL(3,2)		NOT NULL CHECK ( prix > 0.00),
 	numerofournisseur	INTEGER		NOT NULL,
 	PRIMARY KEY (numeroplan),
-	FOREIGN KEY (numerofournisseur) REFERENCES Fournisseur(numerofournisseur) ON DELETE CASCADE
+	FOREIGN KEY (numerofournisseur) REFERENCES Fournisseur(numerofournisseur)
+	-- ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Famille(
