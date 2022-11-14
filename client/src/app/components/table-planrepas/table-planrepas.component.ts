@@ -44,7 +44,7 @@ export class TablePlanrepasComponent implements OnInit {
     const response = confirm(`Ètes vous sur de vouloir supprimer ce Plan Repas?`);
     if (response){
       this.planrepasService.deletePlanrepas(numeroplan).subscribe((res: number)=>{
-        if (!res){
+        if (res === undefined){
           alert('Erreur database not responding'); 
           return;
         }
