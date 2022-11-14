@@ -6,7 +6,7 @@ import { EditPlanrepasComponent } from "../components/edit-planrepas/edit-planre
 const routes: Routes = [
   { path: 'planrepas', component: TablePlanrepasComponent},
   { path: 'new-planrepas', component: EditPlanrepasComponent},
-  { path: 'edit-planrepas', component: EditPlanrepasComponent },
+  { path: 'edit-planrepas', component: EditPlanrepasComponent},
   { path: '**', redirectTo: 'planrepas', pathMatch: 'full'},
 ];
 

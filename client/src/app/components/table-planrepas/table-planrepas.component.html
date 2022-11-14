@@ -16,8 +16,7 @@
         <td>{{plan.nbrcalories}}KCal</td>
         <td>{{plan.prix}}$</td>
         <td>{{getFournisseurName(plan.numerofournisseur)}}</td>
-        <th><a [routerLink]="['edit-planrepas']" [plan]='plan'  >Edit</a></th>
+        <th><a [routerLink]="['/edit-planrepas']" [queryParams]= "{targetPlan: plan.numeroplan}">Edit</a></th>
       </tr>
     </tbody>
 </table>
-<button (click)="initPlan()">Create Nouveau Planrepas</button>
