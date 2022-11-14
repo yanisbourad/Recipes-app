@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Planrepas(
 	frequence			INTEGER		NOT NULL CHECK (frequence > 0),
 	nbrpersonnes		INTEGER		NOT NULL CHECK ( nbrpersonnes > 0),
 	nbrcalories			INTEGER		NOT NULL CHECK ( nbrcalories > 0),
-	prix				DECIMAL(3,2)		NOT NULL CHECK ( prix > 0.00),
+	prix				DECIMAL(5,2)		NOT NULL CHECK ( prix > 0.00),
 	numerofournisseur	INTEGER		NOT NULL,
 	PRIMARY KEY (numeroplan),
 	FOREIGN KEY (numerofournisseur) REFERENCES Fournisseur(numerofournisseur)
