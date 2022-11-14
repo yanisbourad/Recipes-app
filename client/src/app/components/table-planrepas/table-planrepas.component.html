@@ -7,6 +7,7 @@
       <th>Prix</th>
       <th>Fournisseur</th>
       <th></th>
+      <th></th>
     </thead>
     <tbody>
       <tr class= 'plan' *ngFor="let plan of planrepas">
@@ -16,7 +17,8 @@
         <td>{{plan.nbrcalories}}KCal</td>
         <td>{{plan.prix}}$</td>
         <td>{{getFournisseurName(plan.numerofournisseur)}}</td>
-        <th><a [routerLink]="['/edit-planrepas']" [queryParams]= "{targetPlan: plan.numeroplan}">Edit</a></th>
+        <th><a [routerLink]="['/edit-planrepas']" [queryParams]= "{targetPlan: plan.numeroplan}">Modifier</a></th>
+        <th><button (click)="deletePlan(plan.numeroplan)">Supprimer</button></th>
       </tr>
     </tbody>
 </table>

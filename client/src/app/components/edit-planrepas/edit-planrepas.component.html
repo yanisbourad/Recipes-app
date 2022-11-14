@@ -1,22 +1,21 @@
-<p>edit-planrepas works!</p>
 <h1 *ngIf="!plan.numeroplan">Creer Nouveau Plan Repas</h1>
 <h1 *ngIf="plan.numeroplan">Moddifier Plan Repas</h1>
 <p>Categorie</p>
 <input type="text" [(ngModel)] = "plan.categorie" placeholder="Categorie"/>
 <p>frequence(hebdo)</p>
-<input type="number" [(ngModel)] = "plan.frequence" placeholder="Categorie"/>
+<input type="number" [(ngModel)] = "plan.frequence" min="0" placeholder="frequence"/>
 <p>Nombre Personne</p>
-<input type="number" [(ngModel)] = "plan.nbrpersonnes" placeholder="2"/>
+<input type="number" [(ngModel)] = "plan.nbrpersonnes" min="0" placeholder="Nombre Personne"/>
 <p>Calories(KCal) </p>
-<input type="number" [(ngModel)] = "plan.nbrcalories" placeholder="500"/>
-<p>prix($)</p>
-<input type="number" [(ngModel)] = "plan.prix" placeholder="50"/>
+<input type="number" [(ngModel)] = "plan.nbrcalories" min="0" placeholder="Calories"/>
+<p>Prix($)</p>
+<input type="number" [(ngModel)] = "plan.prix" min="0" placeholder="Prix" />
 <p>Fourniseur</p>
 <select name="fournisseur" id="plan" [(ngModel)]="plan.numerofournisseur">
     <div *ngFor="let fournisseur of fournisseurs">
         <option value={{fournisseur.numerofournisseur}}>{{fournisseur.nomfournisseur}}</option>
     </div>
-    <option value=1>test</option>
+    <option value={{null}} >Non Assigned</option>
 
 </select>
 <button *ngIf="!plan.numeroplan" (click)="createPlan()">Creer</button>

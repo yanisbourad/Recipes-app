@@ -41,12 +41,17 @@ export class TablePlanrepasComponent implements OnInit {
     return 'undifined';
   }
   deletePlan(numeroplan: number): void{
-    const response = confirm(`Ètes vous sur de vouloire supprimer ce Plan Repas?`);
+    const response = confirm(`Ètes vous sur de vouloir supprimer ce Plan Repas?`);
     if (response){
       this.planrepasService.deletePlanrepas(numeroplan).subscribe((res: number)=>{
+        if (!res){
+          alert('Erreur database not responding'); 
+          return;
+        }
         alert('Le Plan Repas Est Supprimé Avec Succès');
         this.planrepas = this.planrepas.filter((it)=>{it.numeroplan != numeroplan});
       })
     }
   }
+
 }
