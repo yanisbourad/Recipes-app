@@ -11,10 +11,8 @@
 <p>Prix($)</p>
 <input type="number" [(ngModel)] = "plan.prix" min="0" placeholder="Prix" />
 <p>Fourniseur</p>
-<select name="fournisseur" id="plan" [(ngModel)]="plan.numerofournisseur">
-    <div *ngFor="let fournisseur of fournisseurs">
-        <option value={{fournisseur.numerofournisseur}}>{{fournisseur.nomfournisseur}}</option>
-    </div>
+<select [(ngModel)]="plan.numerofournisseur">
+    <option *ngFor="let fournisseur of fournisseurs" [(ngValue)]="fournisseur.numerofournisseur">{{fournisseur.nomfournisseur}}</option>
 </select>
 <button *ngIf="!plan.numeroplan" (click)="createPlan()">Creer</button>
 <button *ngIf="plan.numeroplan" (click)="updatePlan()">Sauvgarder</button>

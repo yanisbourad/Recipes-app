@@ -2,5 +2,11 @@ table{
     font-size: medium;
     width: max-content;
     border: 5px;
-    
+    text-align: center;
+    width: 90%;
+    margin: auto;
+}
+th{
+    width: max-content;
+    height: 3rem;
 }

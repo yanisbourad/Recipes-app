@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Telephone(
 );
 
 CREATE TABLE IF NOT EXISTS Planrepas(	
-	numeroplan			INTEGER		NOT NULL,
+	numeroplan			INTEGER		NOT NULL, serial primary key,
 	categorie			VARCHAR(30)	NOT NULL,
 	frequence			INTEGER		NOT NULL CHECK (frequence > 0),
 	nbrpersonnes		INTEGER		NOT NULL CHECK ( nbrpersonnes > 0),

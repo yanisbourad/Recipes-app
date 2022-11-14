@@ -15,8 +15,8 @@ export class TablePlanrepasComponent implements OnInit {
   fournisseurs: Fournisseur[] ;
 
   ngOnInit(): void {
-    this.initPlanrepas();
     this.initFournisseurs();
+    this.initPlanrepas();
   }
 
   initPlanrepas():void {
@@ -34,7 +34,7 @@ export class TablePlanrepasComponent implements OnInit {
   }
 
   getFournisseurName(id: number): string {
-    let fournisseur = this.fournisseurs.find((it) => {it.numerofournisseur === id})
+    let fournisseur = this.fournisseurs.find((it) => {return it.numerofournisseur === id})
     if (fournisseur){
       return fournisseur.nomfournisseur;
     }

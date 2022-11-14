@@ -17,17 +17,17 @@ export class EditPlanrepasComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      if (params.targetPlan){
-        this.sourceService.getPlanRepasById(params.targetPlan).subscribe((planrepas: Planrepas) =>
+      if (params.targetPlan != undefined){
+        this.sourceService.getPlanRepasById(params.targetPlan).subscribe((planrepas: Planrepas[]) =>
         { 
           if (planrepas) 
           {
-            this.plan = planrepas
+            this.plan = planrepas[0];
           }
           else alert('Erreur database not responding, Please Try later'); 
         });
       }
-      if (!this.plan){
+      if ( this.plan === undefined){
         this.plan = new Planrepas;
       }
     });
@@ -41,7 +41,7 @@ export class EditPlanrepasComponent implements OnInit {
     if (!this.PlanrepasIsValid()) return;
     this.sourceService.insertPlanrepas(this.plan).subscribe((id: number) =>
     {
-      if (id){
+      if (id != undefined){
         this.plan.numeroplan = id;
         alert('Plan Repas Crée avec Succès');
       }
@@ -54,7 +54,7 @@ export class EditPlanrepasComponent implements OnInit {
     if (!this.PlanrepasIsValid()) return;
     this.sourceService.updatePlanrepas(this.plan).subscribe((res: number) =>
     {
-      if (!res) {
+      if (res != undefined) {
         alert('Erreur database not responding'); 
         return;
       }
@@ -67,7 +67,7 @@ export class EditPlanrepasComponent implements OnInit {
     const response = confirm(`Ètes vous sur de vouloire supprimer ce Plan Repas?`);
     if (response){
       this.sourceService.deletePlanrepas(this.plan.numeroplan).subscribe((res: number)=>{
-        if (!res){
+        if (res != undefined){
           alert('Erreur database not responding'); 
           return;
         }
@@ -92,13 +92,13 @@ export class EditPlanrepasComponent implements OnInit {
       errors+= 'LES CALORIES DOIVENT ÊTRE SUPÉRIEUR À 0 \n';
     if (!this.plan.nbrpersonnes || this.plan.nbrpersonnes <= 0) 
       errors+= 'LE NOMBRE DE PERSONNES DOIT ÊTRE SUPÉRIEUR À 0 \n';
-    if (!this.plan.numerofournisseur || 
-      !this.fournisseurs.find((it)=>{it.numerofournisseur === this.plan.numerofournisseur})) {
+    if (this.plan.numerofournisseur === undefined || 
+      !(this.fournisseurs.find((it)=>{return it.numerofournisseur === this.plan.numerofournisseur}))) {
       errors+= 'VOUS DEVIEZ ASSIGNER UN FOURNISSEUR \n';
       }
 
     // if we found errors found
-    if (errors.length >= 0){
+    if (errors.length > 0){
       alert('Veuillez résoudre ces erreurs puis resseyer:\n\n' + errors);
       return false;
     }

@@ -10,7 +10,7 @@ import { Planrepas } from "../../../../common/tables/planrepas.module";
 @Injectable()
 export class CommunicationService {
   // À DÉCOMMENTER ET À UTILISER LORSQUE VOTRE COMMUNICATION EST IMPLÉMENTÉE
-  private readonly BASE_URL: string = "http://localhost:3000/database";
+  private readonly BASE_URL: string = "http://localhost:3000/database/tables";
   public constructor(private readonly http: HttpClient) {}
 
   private _listeners: any = new Subject<any>();
@@ -29,10 +29,10 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<Planrepas[]>("getPlansRepas")));
   }
 
-  public getPlanRepasById(id: number) : Observable<Planrepas> {
+  public getPlanRepasById(id: number) : Observable<Planrepas[]> {
     return this.http
-      .get<Planrepas>(this.BASE_URL + "/planrepas/" + id)
-      .pipe(catchError(this.handleError<Planrepas>("getPlanRepasById")));
+      .get<Planrepas[]>(this.BASE_URL + "/planrepas/" + id)
+      .pipe(catchError(this.handleError<Planrepas[]>("getPlanRepasById")));
   }
   
   public getFournisseurs(): Observable<Fournisseur[]>{
@@ -43,26 +43,26 @@ export class CommunicationService {
 
   public insertPlanrepas(plan: Planrepas): Observable<number>{
     return this.http
-      .post<number>(this.BASE_URL + "/planrepas/insert", plan)
+      .post<number>(this.BASE_URL + "/planrepas/", plan)
       .pipe(catchError(this.handleError<number>("insertPlanrepas")));
   } 
 
   public updatePlanrepas(plan: Planrepas): Observable<number>{
     return this.http
-      .post<number>(this.BASE_URL + "/planrepas/update", plan)
+      .post<number>(this.BASE_URL + "/planrepas/", plan)
       .pipe(catchError(this.handleError<number>("updatePlanrepas")));
   } 
 
   public deletePlanrepas(numberplan: number): Observable<number> {
     return this.http
-      .post<number>(this.BASE_URL + "/planrepas/delete/" + numberplan, {})
+      .delete<number>(this.BASE_URL + "/planrepas/" + numberplan, {})
       .pipe(catchError(this.handleError<number>("deletePlanrepas")));
   } 
 
-  public getFournisseurById(id: number): Observable<Fournisseur>{
+  public getFournisseurById(id: number): Observable<Fournisseur[]>{
     return this.http
-    .get<Fournisseur>(this.BASE_URL + "/fournisseur/" + id)
-    .pipe(catchError(this.handleError<Fournisseur>("getFournisseurById")));
+    .get<Fournisseur[]>(this.BASE_URL + "/fournisseur/" + id)
+    .pipe(catchError(this.handleError<Fournisseur[]>("getFournisseurById")));
  
   }
 
