@@ -15,8 +15,6 @@
     <div *ngFor="let fournisseur of fournisseurs">
         <option value={{fournisseur.numerofournisseur}}>{{fournisseur.nomfournisseur}}</option>
     </div>
-    <option value={{null}} >Non Assigned</option>
-
 </select>
 <button *ngIf="!plan.numeroplan" (click)="createPlan()">Creer</button>
 <button *ngIf="plan.numeroplan" (click)="updatePlan()">Sauvgarder</button>
