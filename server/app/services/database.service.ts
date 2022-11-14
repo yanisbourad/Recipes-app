@@ -17,7 +17,7 @@ export class DatabaseService {
 
   public async getTable(tablename: String): Promise<pg.QueryResult>{
         const client = await this.pool.connect();
-        const queryText = `SELECT * FROM TP4_Livraison.${tablename};`;
+        const queryText = `SELECT * FROM ${tablename};`;
         const res = await client.query(queryText);
         client.release();
         return res;
