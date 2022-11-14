@@ -39,10 +39,10 @@ CREATE TABLE IF NOT EXISTS Planrepas(
 	frequence			INTEGER		NOT NULL CHECK (frequence > 0),
 	nbrpersonnes		INTEGER		NOT NULL CHECK ( nbrpersonnes > 0),
 	nbrcalories			INTEGER		NOT NULL CHECK ( nbrcalories > 0),
-	prix				INTEGER		NOT NULL CHECK ( prix > 0),
+	prix				DECIMAL(3,2)		NOT NULL CHECK ( prix > 0.00),
 	numerofournisseur	INTEGER		NOT NULL,
 	PRIMARY KEY (numeroplan),
-	FOREIGN KEY (numerofournisseur) REFERENCES Fournisseur(numerofournisseur)
+	FOREIGN KEY (numerofournisseur) REFERENCES Fournisseur(numerofournisseur) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Famille(
@@ -152,8 +152,8 @@ SELECT * FROM Telephone;
 -- Telephone END
 
 -- Planrepas START
-INSERT INTO Planrepas VALUES (0,'halal', 3, 5, 1000, 3, 0);
-INSERT INTO Planrepas VALUES (1,'vegetarien', 2, 4, 400, 10, 1);
+INSERT INTO Planrepas VALUES (0,'halal', 3, 5, 1000, 3.99, 0);
+INSERT INTO Planrepas VALUES (1,'vegetarien', 2, 4, 400, 2.238, 1);
 SELECT * FROM Planrepas;
 -- Planrepas END
 
