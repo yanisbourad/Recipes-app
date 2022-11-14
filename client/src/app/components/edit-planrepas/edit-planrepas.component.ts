@@ -39,7 +39,7 @@ export class EditPlanrepasComponent implements OnInit {
 
   createPlan(): void{
     if (!this.PlanrepasIsValid()) return;
-    this.sourceService.insertPlanrepas(this.plan).subscribe((id: number) =>
+    this.sourceService.createPlanrepas(this.plan).subscribe((id: number) =>
     {
       if (id != undefined){
         this.plan.numeroplan = id;
@@ -58,7 +58,6 @@ export class EditPlanrepasComponent implements OnInit {
         alert('Erreur database not responding'); 
         return;
       }
-      this.plan.numeroplan = res;
       alert('Le Plan Repas Est Modifié Avec Succès');
     })
   }

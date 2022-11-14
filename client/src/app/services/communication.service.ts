@@ -10,7 +10,7 @@ import { Planrepas } from "../../../../common/tables/planrepas.module";
 @Injectable()
 export class CommunicationService {
   // À DÉCOMMENTER ET À UTILISER LORSQUE VOTRE COMMUNICATION EST IMPLÉMENTÉE
-  private readonly BASE_URL: string = "http://localhost:3000/database/tables";
+  private readonly BASE_URL: string = "http://localhost:3000/database";
   public constructor(private readonly http: HttpClient) {}
 
   private _listeners: any = new Subject<any>();
@@ -25,31 +25,31 @@ export class CommunicationService {
 
   public getPlansRepas() : Observable<Planrepas[]> {
     return this.http
-      .get<Planrepas[]>(this.BASE_URL + "/planrepas")
+      .get<Planrepas[]>(this.BASE_URL + "/tables/planrepas")
       .pipe(catchError(this.handleError<Planrepas[]>("getPlansRepas")));
   }
 
   public getPlanRepasById(id: number) : Observable<Planrepas[]> {
     return this.http
-      .get<Planrepas[]>(this.BASE_URL + "/planrepas/" + id)
+      .get<Planrepas[]>(this.BASE_URL + "/tables/planrepas/" + id)
       .pipe(catchError(this.handleError<Planrepas[]>("getPlanRepasById")));
   }
   
   public getFournisseurs(): Observable<Fournisseur[]>{
     return this.http
-      .get<Fournisseur[]>(this.BASE_URL + "/fournisseur")
+      .get<Fournisseur[]>(this.BASE_URL + "/tables/fournisseur")
       .pipe(catchError(this.handleError<Fournisseur[]>("getFournisseurs")));
   }
 
-  public insertPlanrepas(plan: Planrepas): Observable<number>{
+  public createPlanrepas(plan: Planrepas): Observable<number>{
     return this.http
-      .post<number>(this.BASE_URL + "/planrepas/", plan)
-      .pipe(catchError(this.handleError<number>("insertPlanrepas")));
+      .post<number>(this.BASE_URL + "/planrepas/create", plan)
+      .pipe(catchError(this.handleError<number>("createPlanrepas")));
   } 
 
   public updatePlanrepas(plan: Planrepas): Observable<number>{
     return this.http
-      .post<number>(this.BASE_URL + "/planrepas/", plan)
+      .post<number>(this.BASE_URL + "/planrepas/update", plan)
       .pipe(catchError(this.handleError<number>("updatePlanrepas")));
   } 
 

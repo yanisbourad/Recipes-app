@@ -1,5 +1,10 @@
 
 export class Planrepas {
+  constructor(hash: {}) {
+    for (var key in hash){
+      this[key] = hash[key];   
+    }
+  }
     numeroplan: number;
     categorie: string;
     frequence: number;
@@ -7,7 +12,7 @@ export class Planrepas {
     nbrcalories: number;
     prix: number;
     numerofournisseur: number;
-    public getInvalidité(): string{
+    public isValid(): boolean{
             // init erreur messege
         let errors = '';
 
@@ -25,7 +30,7 @@ export class Planrepas {
         if (this.numerofournisseur === undefined ) {
           errors+= 'VOUS DEVIEZ ASSIGNER UN FOURNISSEUR \n';
           }
-          return errors;
+          return errors==='';
     }
     public getValues(): string[]{
       const values: string[] = [

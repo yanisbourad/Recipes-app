@@ -24,9 +24,6 @@ export class DatabaseService {
     return res;
   };
 
-  // get_${req.params.tablename}_ByPrimeryKey
-  // the issue is i dont know the names of the id columne
-  // if we could do a where serche without knowing the name of the colmne => getElementById(id)
   public async getPlanrepasById( id:string): Promise<pg.QueryResult>{
     const client = await this.pool.connect();
     const queryText = `SELECT * FROM planrepas WHERE numeroplan = ${id};`;
@@ -45,25 +42,39 @@ export class DatabaseService {
 
   public async deletePlanrepas(numeroplan: String) {
     if (numeroplan.length === 0) throw new Error("Invalid delete query");
-
     const client = await this.pool.connect();
     const query = `DELETE FROM planrepas WHERE numeroplan = ${numeroplan};`;
 
+    // erreur dans le query a revoir
     const res = await client.query(query);
     client.release();
     return res;
   }
 
-  public async createPlanrepas(planrepas: Planrepas) {
-    
-    if (planrepas.getInvalidité() != '') throw new Error("Invalid Planrepas query");
-
+  public async createPlanrepas(planrepasValues: {}) {
+    let thisPlan = new Planrepas(planrepasValues)
+    if (!thisPlan.isValid()) throw new Error("Invalid Planrepas query");
     const client = await this.pool.connect();
-    
+    // the error here is: numplanrepas n'est pas initier dans le client  
+    // normalement c'est le serveur qui determine le id 
+    // a trouver la logic plus tard
     const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6, $7);`;
 
-    const res = await client.query(queryText, planrepas.getValues());
+    const res = await client.query(queryText, thisPlan.getValues());
     client.release();
     return res;
   }
+
+  public async updatePlanrepas(planrepasValues: {}) {
+    let thisPlan = new Planrepas(planrepasValues)
+    if ( !thisPlan.isValid() ) throw new Error(`This PlanRepas n est pas valide`);
+    const client = await this.pool.connect();
+    const queryText: string = `update planrepas SET categorie = $2, frequence = $3, nbrpersonnes = $4, nbrcalories = $5, prix = $6, numerofournisseur = $7 WHERE numeroplan = $1`;
+    const res = await client.query(queryText, thisPlan.getValues());
+    client.release();
+    return res;
+  }
+
 }
+
+
