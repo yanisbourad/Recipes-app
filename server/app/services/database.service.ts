@@ -22,19 +22,20 @@ export class DatabaseService {
         client.release();
         return res;
     };
+    
+    public async deletePlanrepas(numeroplan: String): Promise<pg.QueryResult> {
+      if (numeroplan.length === 0)
+          throw new Error("Invalid delete query");
+      const client = await this.pool.connect();
+      // erreur dans le query a revoir
+      const query = `DELETE FROM Planrepas WHERE numeroplan = '${numeroplan}';`;
+      const res = await client.query(query);
+      client.release();
+      return res;
+}
 }
 
-// deletePlanrepas(numeroplan: String) {
-//   return __awaiter(this, void 0, void 0, function* () {
-//       if (numeroplan.length === 0)
-//           throw new Error("Invalid delete query");
-//       const client = yield this.pool.connect();
-//       const query = `DELETE FROM TP4_Livraison.Planrepas WHERE Planrepas = '${numeroplan}';`;
-//       const res = yield client.query(query);
-//       client.release();
-//       return res;
-//   });
-// }
+
 
 // createPlanrepas(planrepas) {
 //   return __awaiter(this, void 0, void 0, function* () {

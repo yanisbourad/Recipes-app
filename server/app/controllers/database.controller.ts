@@ -26,6 +26,17 @@ export class DatabaseController {
           console.log("erreur");
       })
   })
+
+    // example: http://localhost:3000/database/Planrepas/1 pas encore fonctionnel
+    router.delete("/planrepas/:numeroplan", (req: Request, res: Response, _: NextFunction) =>{
+      this.databaseService.deletePlanrepas(req.params.numeroplan).then(
+        (result: pg.QueryResult) => {
+              res.json(result.rowCount);
+          }) .catch((e: Error) =>{
+              console.error(e.stack);
+          res.json("probleme rencontré avec DELETE").status(400);
+          })
+  })
   // router.get("planrepas/", (req, res) =>{
   //     const numeroplan = req.query.numeroplan ? req.query.numeroplan : "";
   //     const categorie = req.query.categorie ? req.query.categorie : "";
@@ -63,17 +74,7 @@ export class DatabaseController {
   //     })
   // })
 
-  // // example: http://localhost:3000/database/Planrepas/1
-  // router.delete("/planrepas/:numeroplan", (req,res) =>{
-  //     const numplan = req.params.numeroplan;
-  //     this.databaseService.deletePlanrepas(numplan).then(
-  //         (result) => {
-  //             res.json(result.rowCount);
-  //         }) .catch((e) =>{
-  //             console.error(e.stack);
-  //         res.json("probleme rencontré avec DELETE").status(400);
-  //         })
-  // })
+
   return router;
 };
 };
