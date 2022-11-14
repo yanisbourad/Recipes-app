@@ -42,19 +42,20 @@ export class EditPlanrepasComponent implements OnInit {
     this.sourceService.createPlanrepas(this.plan).subscribe((id: number) =>
     {
       if (id != undefined){
+        console.log(id)
         this.plan.numeroplan = id;
         alert('Plan Repas Crée avec Succès');
       }
       else alert('Erreur database not responding'); 
     })
-
+    console.log(this.plan)
   }
 
   updatePlan(): void{
     if (!this.PlanrepasIsValid()) return;
-    this.sourceService.updatePlanrepas(this.plan).subscribe((res: number) =>
+    this.sourceService.updatePlanrepas(this.plan).subscribe((res: any) =>
     {
-      if (res != undefined) {
+      if (res === undefined) {
         alert('Erreur database not responding'); 
         return;
       }
@@ -65,8 +66,8 @@ export class EditPlanrepasComponent implements OnInit {
   deletePlan(): void{
     const response = confirm(`Ètes vous sur de vouloire supprimer ce Plan Repas?`);
     if (response){
-      this.sourceService.deletePlanrepas(this.plan.numeroplan).subscribe((res: number)=>{
-        if (res != undefined){
+      this.sourceService.deletePlanrepas(this.plan.numeroplan).subscribe((res: any)=>{
+        if (res === undefined){
           alert('Erreur database not responding'); 
           return;
         }

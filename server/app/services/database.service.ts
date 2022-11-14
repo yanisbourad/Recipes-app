@@ -56,14 +56,20 @@ export class DatabaseService {
     thisPlan.init(planrepasValues)
     if (!thisPlan.isValid()) throw new Error("Invalid Planrepas query");
     const client = await this.pool.connect();
+
     // the error here is: numplanrepas n'est pas initier dans le client  
     // normalement c'est le serveur qui determine le id 
     // a trouver la logic plus tard
-    const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6, $7);`;
 
-    const res = await client.query(queryText, thisPlan.getValues());
+    // solution 1: get max id and add 1
+    const maxQuery = await client.query('Select MAX(numeroplan) from planrepas');
+    let id = maxQuery.rows[0].max + 1
+    thisPlan.numeroplan = id
+    // end solution
+    const queryText: string = `INSERT INTO planrepas VALUES($1, $2, $3, $4, $5, $6, $7);`;
+    await client.query(queryText, thisPlan.getValues());
     client.release();
-    return res;
+    return id;
   }
 
   public async updatePlanrepas(planrepasValues: {}) {

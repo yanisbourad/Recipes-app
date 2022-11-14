@@ -49,7 +49,7 @@ export class TablePlanrepasComponent implements OnInit {
           return;
         }
         alert('Le Plan Repas Est Supprimé Avec Succès');
-        this.planrepas = this.planrepas.filter((it)=>{it.numeroplan != numeroplan});
+        this.ngOnInit();
       })
     }
   }
