@@ -17,15 +17,15 @@ export class DatabaseController {
     const router: Router = Router();
     // example: http://localhost:3000/database/tables/Planrepas/
     router.get("/tables/:tablename", (req: Request, res: Response, _: NextFunction) =>{
-
-      this.databaseService.getTable(req.params.tablename)
-      .then((result: pg.QueryResult) =>{
-          res.json(result.rows);
-      })
-      .catch((e: Error) => {
-          console.error(e.stack);
-          console.log("erreur");
-      })
+      res.json({it: 'hello world im owsom'});
+      // this.databaseService.getTable(req.params.tablename)
+      // .then((result: pg.QueryResult) =>{
+      //     res.json(result.rows);
+      // })
+      // .catch((e: Error) => {
+      //     console.error(e.stack);
+      //     console.log("erreur");
+      // })
   })
   // router.get("planrepas/", (req, res) =>{
   //     const numeroplan = req.query.numeroplan ? req.query.numeroplan : "";
