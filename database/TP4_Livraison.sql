@@ -1,5 +1,7 @@
+-- creating the database
 CREATE DATABASE TP4_Livraison;
 
+-- creating the tables
 CREATE TABLE IF NOT EXISTS Client (
 	numeroclient		INTEGER		NOT NULL,
 	nomclient			VARCHAR(30) NOT NULL,
@@ -30,11 +32,11 @@ CREATE TABLE IF NOT EXISTS Telephone(
 	numerodetelephone	VARCHAR(12)		NOT NULL,
 	numeroclient		INTEGER		NOT NULL,
 	PRIMARY KEY (numerodetelephone, numeroclient),
-	FOREIGN KEY (numeroclient) REFERENCES Client(numeroclient)
+	FOREIGN KEY (numeroclient) REFERENCES Client(numeroclient) on delete cascade
 );
 
 CREATE TABLE IF NOT EXISTS Planrepas(	
-	numeroplan			INTEGER		NOT NULL, serial primary key,
+	numeroplan			INTEGER		NOT NULL, 
 	categorie			VARCHAR(30)	NOT NULL,
 	frequence			INTEGER		NOT NULL CHECK (frequence > 0),
 	nbrpersonnes		INTEGER		NOT NULL CHECK ( nbrpersonnes > 0),
@@ -43,41 +45,51 @@ CREATE TABLE IF NOT EXISTS Planrepas(
 	numerofournisseur	INTEGER		NOT NULL,
 	PRIMARY KEY (numeroplan),
 	FOREIGN KEY (numerofournisseur) REFERENCES Fournisseur(numerofournisseur)
-	-- ON DELETE CASCADE
+	ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Famille(
 	numeroplan			INTEGER		NOT NULL,
 	PRIMARY KEY (numeroplan),
 	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan) 
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Vegetarien(
 	numeroplan			INTEGER		NOT NULL,
 	typederepas			VARCHAR(30)	NOT NULL,
 	PRIMARY KEY (numeroplan),
-	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan) 
+	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan) 		
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Pescetarien(
 	numeroplan			INTEGER		NOT NULL,
 	typepoisson			VARCHAR(30)	NOT NULL,
 	PRIMARY KEY (numeroplan),
-	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan) 
+	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE 
 );
 
 CREATE TABLE IF NOT EXISTS Rapide(
 	numeroplan			INTEGER		NOT NULL,
 	tempsdepreparation	TIME		NOT NULL,
 	PRIMARY KEY (numeroplan),
-	FOREIGN KEY (numeroplan) REFERENCES Famille(numeroplan) 
+	FOREIGN KEY (numeroplan) REFERENCES Famille(numeroplan)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Facile(
 	numeroplan			INTEGER		NOT NULL,
 	nbringredients		INTEGER		NOT NULL CHECK (nbringredients > 0),
 	PRIMARY KEY (numeroplan),
-	FOREIGN KEY (numeroplan) REFERENCES Famille(numeroplan) 
+	FOREIGN KEY (numeroplan) REFERENCES Famille(numeroplan) 		
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 /* toujours pas creer a revoir time pour la duree int preference*/
 CREATE TABLE IF NOT EXISTS Abonner(
@@ -85,8 +97,12 @@ CREATE TABLE IF NOT EXISTS Abonner(
 	numeroplan			INTEGER		NOT NULL,
 	duree				TIME		NOT NULL,
 	PRIMARY KEY (numeroclient, numeroplan),
-	FOREIGN KEY (numeroclient) REFERENCES Client(numeroclient),
+	FOREIGN KEY (numeroclient) REFERENCES Client(numeroclient)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE,
 	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Kitrepas (
@@ -95,14 +111,20 @@ CREATE TABLE IF NOT EXISTS Kitrepas (
 	numeroplan			INTEGER		NOT NULL,
 	PRIMARY KEY (numerokitrepas),
 	FOREIGN KEY (numeroplan) REFERENCES Planrepas(numeroplan)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Contenir(
 	numerokitrepas		INTEGER		NOT NULL,
 	numeroingredient	INTEGER		NOT NULL,
 	PRIMARY KEY (numerokitrepas, numeroingredient),
-	FOREIGN KEY (numerokitrepas) REFERENCES Kitrepas(numerokitrepas),
+	FOREIGN KEY (numerokitrepas) REFERENCES Kitrepas(numerokitrepas)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE,
 	FOREIGN KEY (numeroingredient) REFERENCES Ingredient(numeroingredient)	
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 /* A revoir variable donnees*/
@@ -112,6 +134,8 @@ CREATE TABLE IF NOT EXISTS Image(
 	numerokitrepas		INTEGER		NOT NULL,
 	PRIMARY KEY (numeroimage),
 	FOREIGN KEY (numerokitrepas) REFERENCES Kitrepas(numerokitrepas)
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Etape(
@@ -120,7 +144,9 @@ CREATE TABLE IF NOT EXISTS Etape(
 	dureeetape			TIME		NOT NULL,
 	numerokitrepasetrecompose	INTEGER		NOT NULL,
 	PRIMARY KEY (numerokitrepas),
-	FOREIGN KEY (numerokitrepas) REFERENCES Kitrepas(numerokitrepas)
+	FOREIGN KEY (numerokitrepas) REFERENCES Kitrepas(numerokitrepas)	
+		ON DELETE CASCADE 
+        ON UPDATE CASCADE
 );
 
 -- Populate
@@ -211,3 +237,4 @@ INSERT INTO Etape VALUES(0,'battre les oeufs', '00:05', 0);
 INSERT INTO Etape VALUES(1,'verser 250ml de lait', '00:02' ,1);
 SELECT * FROM Etape;
 --Etape END
+
